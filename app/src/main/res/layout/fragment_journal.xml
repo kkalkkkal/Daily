@@ -17,7 +17,7 @@
             android:id="@+id/calendarView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="96dp"
+            android:layout_marginBottom="90dp"
             android:background="#756E6E"
             android:foregroundTint="#FF6A6A"
             android:unfocusedMonthDateColor="@color/purple_200"
@@ -27,26 +27,28 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="113dp"
-            android:layout_height="103dp"
-            android:layout_marginStart="64dp"
+        <ImageButton
+            android:id="@+id/camera_btn"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="124dp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_menu_camera"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView4"
+        <ImageButton
+            android:id="@+id/new_journal_btn"
             android:layout_width="115dp"
-            android:layout_height="114dp"
+            android:layout_height="115dp"
             android:layout_marginTop="124dp"
-            android:layout_marginEnd="72dp"
+            android:layout_marginEnd="70dp"
+            android:scaleType="fitXY"
             android:src="@android:drawable/ic_input_add"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.914"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/camera_btn"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

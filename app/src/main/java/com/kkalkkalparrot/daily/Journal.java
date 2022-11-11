@@ -1,11 +1,12 @@
 package com.kkalkkalparrot.daily;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +19,40 @@ import java.util.Date;
 public class Journal extends Fragment {
 
     CalendarView calendarView;
-    TextView today;
+    private ImageButton camera_btn;
+    private ImageButton journal_btn;
+
+
+    // TextView today;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_journal, container, false);
+
+        camera_btn = rootView.findViewById(R.id.camera_btn);
+        journal_btn = rootView.findViewById(R.id.new_journal_btn);
+
+        camera_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MakeJournal.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra("camera", 1);
+                startActivity(intent);
+
+            }
+        });
+
+        journal_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MakeJournal.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra("camera", 0);
+                startActivity(intent);
+            }
+        });
 
         calendarView = rootView.findViewById(R.id.calendarView);        //날짜변환
         DateFormat formatter = new SimpleDateFormat("yyyy년MM월dd일");
@@ -42,4 +71,6 @@ public class Journal extends Fragment {
 
         return rootView;
     }
+
+
 }

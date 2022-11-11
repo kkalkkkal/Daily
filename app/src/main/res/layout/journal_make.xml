@@ -6,16 +6,35 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:id="@+id/journal_img"
+            android:layout_width="195dp"
+            android:layout_height="273dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
+
+        <EditText
+            android:id="@+id/make_journal_view"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:text="TextView" />
+            android:layout_height="399dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:lines="20"
+            android:maxLines="20" />
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="save" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
