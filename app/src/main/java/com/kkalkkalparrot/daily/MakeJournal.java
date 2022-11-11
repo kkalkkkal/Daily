@@ -37,6 +37,8 @@ public class MakeJournal extends AppCompatActivity {
             takePicture();
         }
 
+
+
     }
 
 
