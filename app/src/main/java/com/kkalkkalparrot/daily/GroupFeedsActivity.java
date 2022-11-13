@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class GroupFeedsActivity extends AppCompatActivity {
+    private boolean setting = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,30 @@ public class GroupFeedsActivity extends AppCompatActivity {
             }
 
         };
+
+        //그룹 추가버튼 리스너
+        ((ImageButton)findViewById(R.id.feedsList_bt1)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+//                showDialog("그룹 조작 버튼 누름");
+                if (setting == false) {
+                    v.setRotation(45);
+                    ((View) findViewById(R.id.feedsListBackground)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt1_t)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt1_b)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt2_t)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt2_b)).setVisibility(View.VISIBLE);
+                }else{
+                    v.setRotation(0);
+                    ((View) findViewById(R.id.feedsListBackground)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt1_t)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt1_b)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt2_t)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.feedsList_opt2_b)).setVisibility(View.INVISIBLE);
+                }
+                setting = !setting;
+            }
+        });
 
         TextView textView= findViewById(R.id.groupNum_feeds);
         textView.setText(id);

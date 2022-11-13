@@ -5,17 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class GroupListActivity extends AppCompatActivity {
+
+    protected boolean setting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,32 @@ public class GroupListActivity extends AppCompatActivity {
             }
         };
 
+        //그룹 추가버튼 리스너
+        ((ImageButton)findViewById(R.id.groupList_bt1)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+//                showDialog("그룹 조작 버튼 누름");
+                if (setting == false) {
+                    v.setRotation(45);
+                    ((View) findViewById(R.id.groupListBackground)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.groupList_opt1_t)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.groupList_opt1_b)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.groupList_opt2_t)).setVisibility(View.VISIBLE);
+                    ((View) findViewById(R.id.groupList_opt2_b)).setVisibility(View.VISIBLE);
+                }else{
+                    v.setRotation(0);
+                    ((View) findViewById(R.id.groupListBackground)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.groupList_opt1_t)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.groupList_opt1_b)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.groupList_opt2_t)).setVisibility(View.INVISIBLE);
+                    ((View) findViewById(R.id.groupList_opt2_b)).setVisibility(View.INVISIBLE);
+                }
+                setting = !setting;
+            }
+        });
+
+
+        // 그룹 목록 생성 및 표시
         LinearLayout con = findViewById(R.id.groupList);
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -57,6 +89,8 @@ public class GroupListActivity extends AppCompatActivity {
             ll.addView(groupLayout);
             con.addView(ll);
         }
+
+
 
     }
     private void showDialog(String msg) {
