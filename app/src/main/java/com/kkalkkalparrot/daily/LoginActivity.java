@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                            dialog = builder.setMessage("Welcome to RecipeTeller")
+                            dialog = builder.setMessage("Welcome to Daily")
                                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
