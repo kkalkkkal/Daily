@@ -4,8 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.accessibilityservice.AccessibilityService;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+
 import com.google.android.material.tabs.TabLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
 
 import java.util.Objects;
 
@@ -19,6 +33,7 @@ public class MainActivity extends FragmentActivity {
     Habit_tracker fragment4; // 화면4
     
     int position; // 현재 화면
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
