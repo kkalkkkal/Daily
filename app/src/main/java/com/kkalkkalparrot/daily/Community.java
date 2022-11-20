@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class Community extends Fragment {
 
     protected boolean setting = false;
+
+    protected String uid;
+
+    protected final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
 
+        uid=getArguments().getString("uid");
+
+        Log.d("Community","Community 페이지!!");
+        Log.d("Community","유저 UID: " + uid);
 
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
@@ -124,9 +137,16 @@ public class Community extends Fragment {
         //유저의 소속그룹 업데이트
     }
 
-    public void startFeedActivity(String id){
+    private void startFeedActivity(String id){
         Intent intent = new Intent(getContext(), GroupFeedsActivity.class);
         intent.putExtra("id", id);
         startActivity(intent);
+    }
+
+    private void getDB(){
+//        Task<QuerySnapshot> data = db.collection("Member").document();
+
+
+
     }
 }
