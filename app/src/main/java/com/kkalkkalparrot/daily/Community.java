@@ -2,11 +2,13 @@ package com.kkalkkalparrot.daily;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +60,12 @@ public class Community extends Fragment {
             }
         });
 
+        ((ImageButton)rootView.findViewById(R.id.groupList_opt2_b)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupJoinDialog();
+            }
+        });
 
         // 그룹 목록 생성 및 표시
         LinearLayout con = rootView.findViewById(R.id.groupList);
@@ -94,6 +102,26 @@ public class Community extends Fragment {
                 .setMessage(msg);
         AlertDialog msgDlg = msgBuilder.create();
         msgDlg.show();
+    }
+
+    private void groupJoinDialog() {
+        final EditText editText = new EditText(getContext());
+        AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
+                .setTitle("그룹 가입")
+                .setMessage("그룹 코드를 입력하세요")
+                .setView(editText).setPositiveButton("가입", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBUpdate_joinGroup();
+                    }
+                });
+        AlertDialog msgDlg = msgBuilder.create();
+        msgDlg.show();
+    }
+
+
+    private void DBUpdate_joinGroup(){
+        //유저의 소속그룹 업데이트
     }
 
     public void startFeedActivity(String id){
