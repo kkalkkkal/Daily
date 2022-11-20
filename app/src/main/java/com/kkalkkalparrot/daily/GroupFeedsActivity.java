@@ -3,9 +3,11 @@ package com.kkalkkalparrot.daily;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,9 @@ public class GroupFeedsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_feeds);
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        String gid = intent.getStringExtra("gid");
+
+        Log.d("GroupFeedsActivity",gid);
 
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
@@ -57,9 +61,6 @@ public class GroupFeedsActivity extends AppCompatActivity {
                 setting = !setting;
             }
         });
-
-        TextView textView= findViewById(R.id.groupNum_feeds);
-        textView.setText(id);
 
         myRecyclerViewAdapter adapter;
         RecyclerView recyclerView;

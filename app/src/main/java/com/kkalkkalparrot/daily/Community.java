@@ -18,15 +18,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Community extends Fragment {
 
     protected boolean setting = false;
 
     protected String uid;
+    protected Map<String, Object> userdata;
 
     protected final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -39,16 +46,6 @@ public class Community extends Fragment {
 
         Log.d("Community","Community 페이지!!");
         Log.d("Community","유저 UID: " + uid);
-
-        View.OnClickListener listener = new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-//                showDialog(v.getTag().toString());
-                Intent intent = new Intent(getActivity(), GroupFeedsActivity.class);
-                intent.putExtra("id", v.getTag().toString());
-                startActivity(intent);
-            }
-        };
 
         ((ImageButton)rootView.findViewById(R.id.groupList_bt1)).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -81,30 +78,44 @@ public class Community extends Fragment {
         });
 
         // 그룹 목록 생성 및 표시
-        LinearLayout con = rootView.findViewById(R.id.groupList);
 
-        for(int i =0; i<10; i++) {
 
-            String groupName = "그룹" + Integer.toString(i);
-            String groupDescription = "그룹" + Integer.toString(i)+"에 대한 설명입니다.";
-            String groupTags = "#태그1";
-            for(int j=0;j<i;j++){
-                groupTags+="#태그"+Integer.toString(j+2);
-            }
+        getUserDB(rootView,inflater,uid);
+        Log.d("Community","DocumentSnapshot data: "+ userdata);
 
-            LinearLayout ll = new LinearLayout(getContext());
-            ll.setPadding(0,50,0,50);
-            LinearLayout groupLayout = (LinearLayout) inflater.inflate(R.layout.group_list_sub,null);
-            groupLayout.setTag(Integer.toString(i));
-            ((TextView)groupLayout.findViewById(R.id.groupName)).setText(groupName);
-            ((TextView)groupLayout.findViewById(R.id.groupDescription)).setText(groupDescription);
-            ((TextView)groupLayout.findViewById(R.id.groupTags)).setText(groupTags);
-            groupLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-            groupLayout.setOnClickListener(listener);
-
-            ll.addView(groupLayout);
-            con.addView(ll);
-        }
+//        View.OnClickListener listener = new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+////                showDialog(v.getTag().toString());
+//                Intent intent = new Intent(getContext(), GroupFeedsActivity.class);
+//                intent.putExtra("id", v.getTag().toString());
+//                startActivity(intent);
+//            }
+//        };
+//
+//        LinearLayout con = rootView.findViewById(R.id.groupList);
+//
+//        for(int i =0; i<10; i++) {
+//
+//            String groupName = "그룹" + Integer.toString(i);
+//            String groupDescription = "그룹" + Integer.toString(i)+"에 대한 설명입니다.";
+//            String groupTags = "#태그1";
+//            for(int j=0;j<i;j++){
+//                groupTags+="#태그"+Integer.toString(j+2);
+//            }
+//
+//            LinearLayout ll = new LinearLayout(getContext());
+//            LinearLayout groupLayout = (LinearLayout) inflater.inflate(R.layout.group_list_sub,null);
+//            groupLayout.setTag(Integer.toString(i));
+//            ((TextView)groupLayout.findViewById(R.id.groupName)).setText(groupName);
+//            ((TextView)groupLayout.findViewById(R.id.groupDescription)).setText(groupDescription);
+//            ((TextView)groupLayout.findViewById(R.id.groupTags)).setText(groupTags);
+//            groupLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+//            groupLayout.setOnClickListener(listener);
+//
+//            ll.addView(groupLayout);
+//            con.addView(ll);
+//        }
 
         return rootView;
     }
@@ -143,10 +154,91 @@ public class Community extends Fragment {
         startActivity(intent);
     }
 
-    private void getDB(){
-//        Task<QuerySnapshot> data = db.collection("Member").document();
+    private void getUserDB(ViewGroup rootView, LayoutInflater inflater, String uid){
+        DocumentReference docRef = db.collection("Member").document(uid);
+        View.OnClickListener listener = new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+//                showDialog(v.getTag().toString());
+                Intent intent = new Intent(getActivity(), GroupFeedsActivity.class);
+                intent.putExtra("gid", v.getTag().toString());
+                startActivity(intent);
+            }
+        };
+        Task<DocumentSnapshot> test = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        userdata = document.getData();
+
+                        Log.d("Community UserDB", "DocumentSnapshot data: " + userdata.get("groups"));
+                    } else {
+                        Log.d("Community UserDB", "No such document");
+                    }
+                } else {
+                    Log.d("Community UserDB", "get failed with ", task.getException());
+                }
+
+                LinearLayout con = rootView.findViewById(R.id.groupList);
+
+                if (userdata != null) {
+
+                    for (int i = 0; i < ((ArrayList<String>) userdata.get("groups")).size(); i++) {
+
+                        LinearLayout ll = new LinearLayout(getContext());
+                        ll.setPadding(0,50,0,50);
+
+                        getGroupInfo(inflater,listener,ll,i,((ArrayList<String>) userdata.get("groups")).get(i).trim());
+
+                        con.addView(ll);
+                    }
+                }
+            }
+
+        });
+
+    }
+
+    private void getGroupInfo(LayoutInflater inflater,View.OnClickListener listener,LinearLayout ll,int i,String guid){
+        DocumentReference docRef = db.collection("Group").document(guid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String, Object> groupData = null;
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        groupData = document.getData();
+
+                        Log.d("Community GroupDB", "Group " + guid + " data: " + groupData);
+                    } else {
+                        Log.d("Community GroupDB", "Group " + guid +"No such document");
+                    }
+                } else {
+                    Log.d("Community GroupDB", "Group " + guid +"get failed with ", task.getException());
+                }
 
 
+                if (groupData!=null) {
+                    String groupName = (String) groupData.get("name");
+                    String groupDescription = (String) groupData.get("description");
+                    String groupTags = "#"+String.join(" #",(ArrayList<String>)groupData.get("tag"));
+
+                    LinearLayout groupLayout = (LinearLayout) inflater.inflate(R.layout.group_list_sub, null);
+
+                    groupLayout.setTag(guid);
+                    ((TextView) groupLayout.findViewById(R.id.groupName)).setText(groupName);
+                    ((TextView) groupLayout.findViewById(R.id.groupDescription)).setText(groupDescription);
+                    ((TextView) groupLayout.findViewById(R.id.groupTags)).setText(groupTags);
+                    groupLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    groupLayout.setOnClickListener(listener);
+
+                    ll.addView(groupLayout);
+                }
+            }
+        });
 
     }
 }
