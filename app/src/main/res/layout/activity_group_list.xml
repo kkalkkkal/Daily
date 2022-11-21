@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -10,17 +11,16 @@
         <ScrollView
             android:id="@+id/ScrollView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
                 android:id="@+id/groupList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center"
-                android:padding="10dp"
-                >
-            </LinearLayout>
+                android:orientation="vertical"
+                android:padding="10dp"></LinearLayout>
         </ScrollView>
         <View
             android:id="@+id/groupListBackground"
@@ -77,12 +77,13 @@
 
         <ImageButton
             android:id="@+id/groupList_bt1"
-            android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="10dp"
-            android:src="@drawable/icons_plus"
-            android:rotation="0"/>
+            android:background="@null"
+            android:contentDescription="@string/action_settings"
+            android:rotation="0"
+            android:src="@drawable/icons_plus" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
