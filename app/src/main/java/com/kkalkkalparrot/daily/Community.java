@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -228,6 +230,7 @@ public class Community extends Fragment {
 
                     LinearLayout groupLayout = (LinearLayout) inflater.inflate(R.layout.group_list_sub, null);
 
+                    Glide.with(groupLayout.findViewById(R.id.groupImage)).load((String) groupData.get("image")).into((ImageView) groupLayout.findViewById(R.id.groupImage));
                     groupLayout.setTag(guid);
                     ((TextView) groupLayout.findViewById(R.id.groupName)).setText(groupName);
                     ((TextView) groupLayout.findViewById(R.id.groupDescription)).setText(groupDescription);

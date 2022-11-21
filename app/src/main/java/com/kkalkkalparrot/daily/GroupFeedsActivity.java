@@ -80,8 +80,6 @@ public class GroupFeedsActivity extends AppCompatActivity {
 
         myRecyclerViewAdapter adapter;
         RecyclerView recyclerView;
-
-        String tempImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAATlBMVEWRkZH///+Ojo6Li4uIiIj4+PjIyMiVlZXx8fHp6enc3NzX19ednZ20tLSwsLCSkpKoqKjAwMDj4+PKysqjo6O7u7vR0dHz8/Pg4OCCgoIFKEJWAAAEzUlEQVR4nO3a65KjKhQFYAKIIqigeOn3f9GzAU1MYk91TdWZ1tT6/kTRWK6gXDSMAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/GM8++3T+AEuD/GjDfc8XIjQNiR0UqRS8c1Rfh8Pt+JIEOptw21cz1iEqbhlhVZWMFbqo4Pc/Akicnc75Cjhm+2Eh2JfWhjLy/nwKEr8brroLxKK/r28rD4oIZ9ei7VgJ65DZodMpVrQal21OWHV7IyBpRs3xxpiyaTjr8FZ59ej1HFbsR5kaE9wH9JFl8l0bkauqywn1JLvpN1zFQ6diCWCuX6KFcXXo7Tpd9kOeoqAG5ET3i+rLeHrfp3Ov8S2TvW328qblLD8n0/2r/w0oU133HeXHxL+ph8nTC3S8FaefUJCnu7DW8MOm5ErJnxpStnWT2ofqCl9TXm9hIXeUSmPvQ/Zin5w4rlPv17CJ6njY7zdlxWD3dfjRySkiE9DtGI/gbh4wm0jt8NTxukR8XoJZ68eHp2gEM4vjynUY4B9vYTv49IVtaOyG5c14j3RFRP+6TuchzxXvN+Kn5aQEnVpiFN/bsJ1MtV/WML9/SiGz0vIrdq1Oflry2cl7G99u467uciPeYbtaxdMyMs9tmWgcXdctyp3iuG6dfj8VLgW2ww4bam2Pv9R0xdM+GQRL+PubH4E+oCEjIflpVSH13HpfImE/JuENJBxZjfwnlV5kbkFDy3ZVUdaf+byVi46p8xSVXXtqVV9OoxNO3bsjA4G129224SQUoj3F4hXeasIF5KuqZKFvJyK1hcXceJgbXe/4ujesrlRKWmB0VCAVkLci60LabewHtPaf57lWDP6xupy7uLzl9SSlMNETFyvtNbpvS8fR153sm8tBRA6LK2oaZOwVScHrR0tMJv2TAtEmukMb9ZIpcaYsGJxmhAfF/JQNfEU48lyKdks1k1V2WpHn1zqUDs1SVFZq7mvhS1Kq5nTKaHmg6ZfSJrhJAm1FWJNKE0tU8LRE6rM3jvndTxRuUzsRstOeeHaKiYcJNVlzONpwcWE/ZaQSrg4T0KtfT9TQt6ppVfxwcQc321OnImymKbZxXFMWy/L0PM6JlSmoIRWT/SDpKrzSovnhDzOjGf929ky3QYW65C32nSd0Y7qMPbZTWm9n8exGhTderW1/suHlFB89aFueelHa4OnOh9oVGMNd318Z5oS0vBVmMmeo1vUgYUQE45Oxr+ReDrZOrK2aUZjfDNSoyi4V4NSkx0m17QpoV3ig/45zhdLKcqeO+2cGwMlVCw4d5qr1PR938T7kLOOxB5jHb5wPvTT1Of3aF01Nk2jXWuMyQl5S82Rr6gNrmpjampC6UhmooQNLdSKEvJTZIxhSkro7q9f1s+qLSuxtaWs06WUX3Wb3tXrmJBaYWqPqIfoqJ2xTnfptT7dkGmBU28hR3OO65QazbqsSrt6LDBjRm/qXBE0yq5NlTpMUduUcIjPwelmW+swo4TpM7alofmdPAcEc4fFjVLNWg0uzRnyrEjwQPdm+l9bY9dN2wG6bYF2OdUI/PhcdtOE938i3kueN50pFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXNh/mDxB0bZfCNkAAAAASUVORK5CYII=";
         //데이터 모델리스트
 
 
@@ -129,7 +127,6 @@ public class GroupFeedsActivity extends AppCompatActivity {
     }
 
     private void getFeedDB(myRecyclerViewAdapter adapter,String gid, Timestamp start, int limit){
-        String tempImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAATlBMVEWRkZH///+Ojo6Li4uIiIj4+PjIyMiVlZXx8fHp6enc3NzX19ednZ20tLSwsLCSkpKoqKjAwMDj4+PKysqjo6O7u7vR0dHz8/Pg4OCCgoIFKEJWAAAEzUlEQVR4nO3a65KjKhQFYAKIIqigeOn3f9GzAU1MYk91TdWZ1tT6/kTRWK6gXDSMAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/GM8++3T+AEuD/GjDfc8XIjQNiR0UqRS8c1Rfh8Pt+JIEOptw21cz1iEqbhlhVZWMFbqo4Pc/Akicnc75Cjhm+2Eh2JfWhjLy/nwKEr8brroLxKK/r28rD4oIZ9ei7VgJ65DZodMpVrQal21OWHV7IyBpRs3xxpiyaTjr8FZ59ej1HFbsR5kaE9wH9JFl8l0bkauqywn1JLvpN1zFQ6diCWCuX6KFcXXo7Tpd9kOeoqAG5ET3i+rLeHrfp3Ov8S2TvW328qblLD8n0/2r/w0oU133HeXHxL+ph8nTC3S8FaefUJCnu7DW8MOm5ErJnxpStnWT2ofqCl9TXm9hIXeUSmPvQ/Zin5w4rlPv17CJ6njY7zdlxWD3dfjRySkiE9DtGI/gbh4wm0jt8NTxukR8XoJZ68eHp2gEM4vjynUY4B9vYTv49IVtaOyG5c14j3RFRP+6TuchzxXvN+Kn5aQEnVpiFN/bsJ1MtV/WML9/SiGz0vIrdq1Oflry2cl7G99u467uciPeYbtaxdMyMs9tmWgcXdctyp3iuG6dfj8VLgW2ww4bam2Pv9R0xdM+GQRL+PubH4E+oCEjIflpVSH13HpfImE/JuENJBxZjfwnlV5kbkFDy3ZVUdaf+byVi46p8xSVXXtqVV9OoxNO3bsjA4G129224SQUoj3F4hXeasIF5KuqZKFvJyK1hcXceJgbXe/4ujesrlRKWmB0VCAVkLci60LabewHtPaf57lWDP6xupy7uLzl9SSlMNETFyvtNbpvS8fR153sm8tBRA6LK2oaZOwVScHrR0tMJv2TAtEmukMb9ZIpcaYsGJxmhAfF/JQNfEU48lyKdks1k1V2WpHn1zqUDs1SVFZq7mvhS1Kq5nTKaHmg6ZfSJrhJAm1FWJNKE0tU8LRE6rM3jvndTxRuUzsRstOeeHaKiYcJNVlzONpwcWE/ZaQSrg4T0KtfT9TQt6ppVfxwcQc321OnImymKbZxXFMWy/L0PM6JlSmoIRWT/SDpKrzSovnhDzOjGf929ky3QYW65C32nSd0Y7qMPbZTWm9n8exGhTderW1/suHlFB89aFueelHa4OnOh9oVGMNd318Z5oS0vBVmMmeo1vUgYUQE45Oxr+ReDrZOrK2aUZjfDNSoyi4V4NSkx0m17QpoV3ig/45zhdLKcqeO+2cGwMlVCw4d5qr1PR938T7kLOOxB5jHb5wPvTT1Of3aF01Nk2jXWuMyQl5S82Rr6gNrmpjampC6UhmooQNLdSKEvJTZIxhSkro7q9f1s+qLSuxtaWs06WUX3Wb3tXrmJBaYWqPqIfoqJ2xTnfptT7dkGmBU28hR3OO65QazbqsSrt6LDBjRm/qXBE0yq5NlTpMUduUcIjPwelmW+swo4TpM7alofmdPAcEc4fFjVLNWg0uzRnyrEjwQPdm+l9bY9dN2wG6bYF2OdUI/PhcdtOE938i3kueN50pFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXNh/mDxB0bZfCNkAAAAASUVORK5CYII=";
 
         Query   collection = db.collection("Group").document(gid).collection("feeds").orderBy("create_at").startAfter(start).limit(limit);
         collection.get()
@@ -142,7 +139,12 @@ public class GroupFeedsActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Map<String, Object> data = document.getData();
                                     lastTime = (Timestamp) data.get("create_at");
-                                    dataModels.add(new DataModel((String) data.get("content"), tempImg));
+                                    if (((ArrayList<String>) data.get("images")).size() == 0) {
+                                        dataModels.add(new DataModel((String) data.get("content"), ""));
+                                    }else{
+                                        dataModels.add(new DataModel((String) data.get("content"), ((ArrayList<String>) data.get("images")).get(0)));
+                                    }
+
                                     Log.d("Feeds DB", document.getId() + " => " + data);
                                 }
                                 adapter.notifyItemInserted(0);
