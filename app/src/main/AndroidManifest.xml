@@ -33,16 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupActivity"></activity>
-        <activity android:name=".GroupListActivity">
-            
-        </activity>
-        <activity android:name=".SignupActivity"
-            tools:ignore="DuplicateActivity" />
+        <activity android:name=".GroupFeedsActivity" />
+        <activity android:name=".GroupFeedActivity" />
+        <activity android:name=".SignupActivity" />
         <activity android:name=".MakeJournal" />
 
-        <activity android:name=".GroupFeedsActivity"></activity>
-        <activity android:name=".GroupFeedActivity"></activity>
+
     </application>
 
 </manifest>
