@@ -8,6 +8,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -39,9 +40,15 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        String uid = intent.getStringExtra("uid");
+
+        Bundle bundle = new Bundle();
+        bundle.putString("uid",uid);
 
         fragment1 = new Journal();
         fragment2 = new Community();
+        fragment2.setArguments(bundle);
         fragment3 = new Finder();
         fragment4 = new Habit_tracker();
 
