@@ -26,4 +26,7 @@
     <style name="Theme.Daily.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Daily.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Shape" parent="">
+        <item name="cornerSize">5%</item>
+    </style>
 </resources>

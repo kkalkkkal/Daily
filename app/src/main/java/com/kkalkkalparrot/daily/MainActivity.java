@@ -55,10 +55,10 @@ public class MainActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
 
         tabs = findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("탭1"));
-        tabs.addTab(tabs.newTab().setText("탭2"));
-        tabs.addTab(tabs.newTab().setText("탭3"));
-        tabs.addTab(tabs.newTab().setText("탭4"));
+        tabs.addTab(tabs.newTab().setText("저널"));
+        tabs.addTab(tabs.newTab().setText("그룹"));
+        tabs.addTab(tabs.newTab().setText("주변"));
+        tabs.addTab(tabs.newTab().setText("감정"));
 
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
