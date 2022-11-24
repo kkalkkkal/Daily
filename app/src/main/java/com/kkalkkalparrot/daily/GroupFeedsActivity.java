@@ -87,7 +87,7 @@ public class GroupFeedsActivity extends AppCompatActivity {
         adapter = new myRecyclerViewAdapter(this,dataModels);
         recyclerView.setAdapter(adapter);
 
-        getFeedDB(adapter,gid,lastTime,10);
+        getFeedsDB(adapter,gid,lastTime,10);
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -95,7 +95,7 @@ public class GroupFeedsActivity extends AppCompatActivity {
                 if (!recyclerView.canScrollVertically(1)) {
                     // 스크롤 마지막일때 새로 데이터추가 새로 로딩
 
-                    getFeedDB(adapter,gid,lastTime,10);
+                    getFeedsDB(adapter,gid,lastTime,10);
 
                 }
 //                if (!recyclerView.canScrollVertically(-1)) {
@@ -126,7 +126,7 @@ public class GroupFeedsActivity extends AppCompatActivity {
         msgDlg.show();
     }
 
-    private void getFeedDB(myRecyclerViewAdapter adapter,String gid, Timestamp start, int limit){
+    private void getFeedsDB(myRecyclerViewAdapter adapter,String gid, Timestamp start, int limit){
 
         Query   collection = db.collection("Group").document(gid).collection("feeds").orderBy("create_at").startAfter(start).limit(limit);
         collection.get()
@@ -140,9 +140,9 @@ public class GroupFeedsActivity extends AppCompatActivity {
                                     Map<String, Object> data = document.getData();
                                     lastTime = (Timestamp) data.get("create_at");
                                     if (((ArrayList<String>) data.get("images")).size() == 0) {
-                                        dataModels.add(new DataModel((String) data.get("content"), ""));
+                                        dataModels.add(new DataModel((String) data.get("content"), "", gid, document.getId()));
                                     }else{
-                                        dataModels.add(new DataModel((String) data.get("content"), ((ArrayList<String>) data.get("images")).get(0)));
+                                        dataModels.add(new DataModel((String) data.get("content"), ((ArrayList<String>) data.get("images")).get(0), gid, document.getId()));
                                     }
 
                                     Log.d("Feeds DB", document.getId() + " => " + data);

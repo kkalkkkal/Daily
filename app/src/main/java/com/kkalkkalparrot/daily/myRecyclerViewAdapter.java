@@ -69,9 +69,10 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter {
         myViewHolder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, position + "번째 텍스트 뷰 클릭", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, dataModels.get(position).getFid(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), GroupFeedActivity.class);
-                intent.putExtra("id", Integer.toString(position));
+                intent.putExtra("gid", dataModels.get(position).getGid());
+                intent.putExtra("fid", dataModels.get(position).getFid());
                 v.getContext().startActivity(intent);
 
             }
@@ -82,9 +83,10 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter {
         myViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, position + "번째 이미지 뷰 클릭", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, dataModels.get(position).getFid(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), GroupFeedActivity.class);
-                intent.putExtra("id", Integer.toString(position));
+                intent.putExtra("gid", dataModels.get(position).getGid());
+                intent.putExtra("fid", dataModels.get(position).getFid());
                 v.getContext().startActivity(intent);
             }
         });

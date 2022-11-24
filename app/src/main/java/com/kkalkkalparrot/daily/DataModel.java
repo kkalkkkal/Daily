@@ -4,6 +4,8 @@ public class DataModel {
     String title;
     String user;
     String image_path;
+    String gid;
+    String fid;
     int num;
 
     public String getTitle() {
@@ -38,8 +40,31 @@ public class DataModel {
         this.num = num;
     }
 
-    public DataModel(String title, String image_path) {
-        this.title = title;
+    public String getGid() {
+        return gid;
+    }
+
+    public void setGid(String gid) {
+        this.fid = gid;
+    }
+
+    public String getFid() {
+        return fid;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid;
+    }
+
+    public DataModel(String title, String image_path, String gid, String fid) {
+        if (title.length()>10){
+            this.title = title.substring(0,10)+"...";
+        }
+        else{
+            this.title = title;
+        }
         this.image_path = image_path;
+        this.gid = gid;
+        this.fid = fid;
     }
 }

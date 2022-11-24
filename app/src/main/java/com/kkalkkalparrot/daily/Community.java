@@ -42,17 +42,17 @@ public class Community extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_group_list, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
 
 
-        GL_Btn1 = rootView.findViewById(R.id.groupList_bt1);
+        View GL_Btn1 = rootView.findViewById(R.id.groupList_bt1);
 
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
             public void onClick(View v){
 //                showDialog(v.getTag().toString());
                 Intent intent = new Intent(getContext(), GroupFeedsActivity.class);
-                intent.putExtra("id", v.getTag().toString());
+                intent.putExtra("gid", v.getTag().toString());
                 startActivity(intent);
             }
         };
@@ -80,34 +80,6 @@ public class Community extends Fragment {
                 setting = !setting;
             }
         });
-
-
-        // 그룹 목록 생성 및 표시
-        con = rootView.findViewById(R.id.groupList);
-        LayoutInflater inflater2 = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        for(int i =0; i<10; i++) {
-
-            String groupName = "그룹" + Integer.toString(i);
-            String groupDescription = "그룹" + Integer.toString(i)+"에 대한 설명입니다.";
-            String groupTags = "#태그1";
-            for(int j=0;j<i;j++){
-                groupTags+="#태그"+Integer.toString(j+2);
-            }
-
-            LinearLayout ll = new LinearLayout(getActivity());
-            ll.setPadding(0,50,0,50);
-            LinearLayout groupLayout = (LinearLayout) inflater2.inflate(R.layout.group_list_sub,null);
-            groupLayout.setTag(Integer.toString(i));
-            ((TextView)groupLayout.findViewById(R.id.groupName)).setText(groupName);
-            ((TextView)groupLayout.findViewById(R.id.groupDescription)).setText(groupDescription);
-            ((TextView)groupLayout.findViewById(R.id.groupTags)).setText(groupTags);
-            groupLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-            groupLayout.setOnClickListener(listener);
-
-            ll.addView(groupLayout);
-            con.addView(ll);
-        }
 
         uid=getArguments().getString("uid");
 
