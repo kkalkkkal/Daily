@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Finder"
-    android:background="@color/white">
+    android:background="@color/grey">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="화면3"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+
+    <com.yalantis.library.Koloda
+        android:id="@+id/koloda"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:koloda_card_layout="@layout/item_koloda" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/rejectBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@drawable/ic_cancel" />
+
+        <ImageButton
+            android:id="@+id/acceptBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:background="@drawable/ic_heart" />
+    </LinearLayout>
+
 
 </FrameLayout>
