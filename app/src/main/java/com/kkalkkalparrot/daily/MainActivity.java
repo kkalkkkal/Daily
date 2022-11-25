@@ -35,22 +35,26 @@ public class MainActivity extends FragmentActivity {
     
     int position; // 현재 화면
 
+    public String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
-        String uid = intent.getStringExtra("uid");
+        uid = intent.getStringExtra("uid"); // 로그인한 유저의 ID
 
         Bundle bundle = new Bundle();
         bundle.putString("uid",uid);
 
         fragment1 = new Journal();
+        fragment1.setArguments(bundle);
         fragment2 = new Community();
         fragment2.setArguments(bundle);
         fragment3 = new Finder();
+        fragment3.setArguments(bundle);
         fragment4 = new Habit_tracker();
+        fragment4.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
 
@@ -89,4 +93,6 @@ public class MainActivity extends FragmentActivity {
         });
 
     }
+
+
 }
