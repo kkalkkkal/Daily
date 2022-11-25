@@ -29,11 +29,15 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter {
     //리사이클러뷰에 넣을 데이터 리스트
     ArrayList<DataModel> dataModels;
     Context context;
+    String uid;;
+    String gid;;
 
     //생성자를 통하여 데이터 리스트 context를 받음
-    public myRecyclerViewAdapter(Context context, ArrayList<DataModel> dataModels) {
+    public myRecyclerViewAdapter(Context context, ArrayList<DataModel> dataModels,String uid, String gid) {
         this.dataModels = dataModels;
         this.context = context;
+        this.uid = uid;;
+        this.gid = gid;
     }
 
     @Override
@@ -71,7 +75,8 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 Toast.makeText(context, dataModels.get(position).getFid(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), GroupFeedActivity.class);
-                intent.putExtra("gid", dataModels.get(position).getGid());
+                intent.putExtra("uid", uid);
+                intent.putExtra("gid", gid);
                 intent.putExtra("fid", dataModels.get(position).getFid());
                 v.getContext().startActivity(intent);
 
@@ -79,13 +84,16 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter {
         });
 
 //        .setImageResource(dataModels.get(position).num);
-        Glide.with(myViewHolder.imageView).load(dataModels.get(position).getImage_path()).into(myViewHolder.imageView);
+        if (!dataModels.get(position).getImage_path().equals("")){
+            Glide.with(myViewHolder.imageView).load(dataModels.get(position).getImage_path()).into(myViewHolder.imageView);
+        }
         myViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, dataModels.get(position).getFid(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(v.getContext(), GroupFeedActivity.class);
-                intent.putExtra("gid", dataModels.get(position).getGid());
+                intent.putExtra("uid", uid);
+                intent.putExtra("gid", gid);
                 intent.putExtra("fid", dataModels.get(position).getFid());
                 v.getContext().startActivity(intent);
             }

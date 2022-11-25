@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ public class GroupFeedsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_feeds);
         Intent intent = getIntent();
+        String uid = intent.getStringExtra("uid");
         String gid = intent.getStringExtra("gid");
 
         Log.d("GroupFeedsActivity",gid);
@@ -76,6 +79,15 @@ public class GroupFeedsActivity extends AppCompatActivity {
             }
         });
 
+        ((ImageButton)findViewById(R.id.feedsList_opt1_b)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupInfoDialog(gid);
+//                groupCreateDialog(rootView,inflater);
+
+            }
+        });
+
 
 
         myRecyclerViewAdapter adapter;
@@ -84,7 +96,7 @@ public class GroupFeedsActivity extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recyclerview);
-        adapter = new myRecyclerViewAdapter(this,dataModels);
+        adapter = new myRecyclerViewAdapter(this,dataModels,uid,gid);
         recyclerView.setAdapter(adapter);
 
         getFeedsDB(adapter,gid,lastTime,10);
@@ -107,12 +119,6 @@ public class GroupFeedsActivity extends AppCompatActivity {
 //                }
             }
         });
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog("test");
-            }
-        });
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
 
         
@@ -125,7 +131,20 @@ public class GroupFeedsActivity extends AppCompatActivity {
         AlertDialog msgDlg = msgBuilder.create();
         msgDlg.show();
     }
+    private void groupInfoDialog(String gid) {
+//        LinearLayout ll = new LinearLayout(getApplicationContext());
+        TextView textView = new TextView(getApplicationContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+//        params.leftMargin(10)
+        textView.setLayoutParams(params);
+        textView.setText("그룹 정보\n그룹 코드\n"+gid);
+        textView.setTextIsSelectable(true);
 
+        AlertDialog.Builder msgBuilder = new AlertDialog.Builder(GroupFeedsActivity.this)
+                .setView(textView);
+        AlertDialog msgDlg = msgBuilder.create();
+        msgDlg.show();
+    }
     private void getFeedsDB(myRecyclerViewAdapter adapter,String gid, Timestamp start, int limit){
 
         Query   collection = db.collection("Group").document(gid).collection("feeds").orderBy("create_at").startAfter(start).limit(limit);
@@ -140,9 +159,9 @@ public class GroupFeedsActivity extends AppCompatActivity {
                                     Map<String, Object> data = document.getData();
                                     lastTime = (Timestamp) data.get("create_at");
                                     if (((ArrayList<String>) data.get("images")).size() == 0) {
-                                        dataModels.add(new DataModel((String) data.get("content"), "", gid, document.getId()));
+                                        dataModels.add(new DataModel((String) data.get("content"), "", document.getId()));
                                     }else{
-                                        dataModels.add(new DataModel((String) data.get("content"), ((ArrayList<String>) data.get("images")).get(0), gid, document.getId()));
+                                        dataModels.add(new DataModel((String) data.get("content"), ((ArrayList<String>) data.get("images")).get(0), document.getId()));
                                     }
 
                                     Log.d("Feeds DB", document.getId() + " => " + data);
