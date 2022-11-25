@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.media.Image;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,9 @@ public class Community extends Fragment {
     protected String uid;
     protected Map<String, Object> userdata;
 
+    public ImageButton GL_Btn1;
+    public LinearLayout con;
+
     protected final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Nullable
@@ -52,7 +56,8 @@ public class Community extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
         uid=getArguments().getString("uid");
 
-        View GL_Btn1 = rootView.findViewById(R.id.groupList_bt1);
+
+        GL_Btn1 = rootView.findViewById(R.id.groupList_bt1);
 
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
