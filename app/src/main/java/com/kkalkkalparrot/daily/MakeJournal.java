@@ -40,7 +40,9 @@ public class MakeJournal extends AppCompatActivity {
     private ImageView imageView;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
     private Button save_btn;
-    private EditText editText;
+    private EditText edit_content;
+    private EditText edit_title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +71,12 @@ public class MakeJournal extends AppCompatActivity {
         }
 
         save_btn = (Button) findViewById(R.id.journal_save_btn);
-        editText = (EditText) findViewById(R.id.make_journal_view);
+        edit_content = (EditText) findViewById(R.id.make_journal_context);
+        edit_title = (EditText) findViewById(R.id.make_journal_title);
 
 
-        String journal_context = String.valueOf(editText.getText().toString());
-        String journal_image = "";
+        String journal_context = String.valueOf(edit_content.getText().toString());
+        String journal_title = String.valueOf(edit_title.getText().toString());
 
      //   현재 위치 저장하기
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -86,6 +89,7 @@ public class MakeJournal extends AppCompatActivity {
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> user = new HashMap<>();
+                user.put("Title", journal_title);
                 user.put("uid",uid);
                 user.put("Content",journal_context);
                 user.put("GPS", location);
