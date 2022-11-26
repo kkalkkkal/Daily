@@ -14,15 +14,16 @@
 
         <ImageView
             android:id="@+id/journal_img"
-            android:layout_width="195dp"
-            android:layout_height="273dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
 
         <EditText
             android:id="@+id/make_journal_view"
             android:layout_width="match_parent"
-            android:layout_height="399dp"
+            android:layout_height="322dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
@@ -30,7 +31,7 @@
             android:maxLines="20" />
 
         <Button
-            android:id="@+id/save_btn"
+            android:id="@+id/journal_save_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
