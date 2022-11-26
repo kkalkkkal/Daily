@@ -51,6 +51,7 @@ public class MainActivity extends FragmentActivity {
         fragment2.setArguments(bundle);
         fragment3 = new Finder();
         fragment4 = new Habit_tracker();
+        fragment4.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
 
