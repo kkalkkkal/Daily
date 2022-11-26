@@ -33,6 +33,12 @@ public class Journal extends Fragment {
     protected String uid;
     // TextView today;
 
+    int select_year = 2022;
+    int select_month = 1;
+    int select_dayOfMonth = 1;
+
+    Date date;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +51,8 @@ public class Journal extends Fragment {
         journal_btn = rootView.findViewById(R.id.new_journal_btn);
         calendarView = rootView.findViewById(R.id.calendarView);
 
+        DateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분 ss초 zzzZZZZ");
+
         camera_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +60,10 @@ public class Journal extends Fragment {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("camera", 1);
                 intent.putExtra("uid", uid);
+                intent.putExtra("year", select_year);
+                intent.putExtra("month", select_month);
+                intent.putExtra("dayOfMonth", select_dayOfMonth);
+                intent.putExtra("TimeStamp", formatter.format(date));
                 startActivity(intent);
 
             }
@@ -63,36 +75,29 @@ public class Journal extends Fragment {
                 Intent intent = new Intent(getActivity(), MakeJournal.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("camera", 0);
+                intent.putExtra("uid", uid);
+
+                intent.putExtra("year", select_year);
+                intent.putExtra("month", select_month);
+                intent.putExtra("dayOfMonth", select_dayOfMonth);
                 startActivity(intent);
             }
         });
 
         //Todo : 날짜변환 (캘린더 뷰는 클릭 이벤트가 발생하지 않아 팝업 창이 생기지 않는다. -> 별도의 리스트 확인 버튼을 만들고 캘린더는 어디까지나 날짜 세팅용으로만 둔다)
 
-        DateFormat formatter = new SimpleDateFormat("yyyy년MM월dd일");
-        Date date = new Date(calendarView.getDate());
+
         //today.setText(formatter.format(date));
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Log.i("디버깅", year + "년" + (month + 1) + "월" + dayOfMonth + "일");
-                Toast.makeText(getContext(), year + "년" + (month + 1) + "월" + dayOfMonth + "일", Toast.LENGTH_SHORT).show();
-                final PopupMenu popupMenu = new PopupMenu(getContext(),rootView);
-                getActivity().getMenuInflater().inflate(R.menu.calendar_menu,popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        if (menuItem.getItemId() == R.id.menu1){
-                            Toast.makeText(getContext(), "메뉴 1 클릭", Toast.LENGTH_SHORT).show();
-                        }else if (menuItem.getItemId() == R.id.menu2){
-                            Toast.makeText(getContext(), "메뉴 2 클릭", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(getContext(), "메뉴 3 클릭", Toast.LENGTH_SHORT).show();
-                        }
+                select_year = year;
+                select_month = month;
+                select_dayOfMonth = dayOfMonth;
+                Toast.makeText(getContext(), year + "년 " + (month + 1) + "월 " + dayOfMonth + "일 ", Toast.LENGTH_SHORT).show();
+                date = new Date(calendarView.getDate());
 
-                        return false;
-                    }
-                });
 
             }
         });

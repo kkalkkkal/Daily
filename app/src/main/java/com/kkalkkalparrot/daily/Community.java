@@ -247,7 +247,7 @@ public class Community extends Fragment {
                     Log.d("Community UserDB", "get failed with ", task.getException());
                 }
 
-                LinearLayout con = rootView.findViewById(R.id.groupList);
+                con = rootView.findViewById(R.id.groupList);
                 con.removeAllViews();
                 if (userdata != null) {
 
