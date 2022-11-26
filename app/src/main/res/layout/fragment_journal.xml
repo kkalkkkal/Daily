@@ -17,38 +17,51 @@
             android:id="@+id/calendarView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="90dp"
+            android:layout_marginBottom="56dp"
             android:background="#756E6E"
             android:foregroundTint="#FF6A6A"
             android:unfocusedMonthDateColor="@color/purple_200"
             android:weekSeparatorLineColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/camera_btn"
             android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="124dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="84dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_menu_camera"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/journal_list_btn"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="84dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_gallery"
+            app:layout_constraintBottom_toTopOf="@+id/calendarView"
+            app:layout_constraintEnd_toStartOf="@+id/new_journal_btn"
+            app:layout_constraintStart_toEndOf="@+id/camera_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/new_journal_btn"
             android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_marginTop="124dp"
-            android:layout_marginEnd="70dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="44dp"
             android:scaleType="fitXY"
             android:src="@android:drawable/ic_input_add"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.914"
-            app:layout_constraintStart_toEndOf="@+id/camera_btn"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

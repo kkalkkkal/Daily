@@ -38,6 +38,7 @@
         <activity android:name=".GroupFeedActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".MakeJournal" />
+        <activity android:name=".journalList" />
 
 
 
