@@ -1,14 +1,18 @@
 package com.kkalkkalparrot.daily;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.accessibilityservice.AccessibilityService;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -35,25 +39,42 @@ public class MainActivity extends FragmentActivity {
     
     int position; // 현재 화면
 
+    public static final int PERMISSIONS_REQUEST = 1000;
+
+    public String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
-        String uid = intent.getStringExtra("uid");
+        uid = intent.getStringExtra("uid"); // 로그인한 유저의 ID
 
         Bundle bundle = new Bundle();
         bundle.putString("uid",uid);
 
         fragment1 = new Journal();
+        fragment1.setArguments(bundle);
         fragment2 = new Community();
         fragment2.setArguments(bundle);
         fragment3 = new Finder();
+        fragment3.setArguments(bundle);
         fragment4 = new Habit_tracker();
         fragment4.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    PERMISSIONS_REQUEST);
+        }
 
         tabs = findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("저널"));
@@ -90,4 +111,6 @@ public class MainActivity extends FragmentActivity {
         });
 
     }
+
+
 }
