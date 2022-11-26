@@ -6,8 +6,10 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,13 +22,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> {
-    private ArrayList<Habit> mData = null ;
+    private ArrayList<HabitCheck> mData = null ;
     private LocalDate mDate;
+    private Habit_tracker habitContext;
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout habitView;
         Switch habitSwitch;
+        Button habitEditAndDeleteBtn;
+
+        public void setOnMyClickListener(View.OnClickListener oCL){
+            habitEditAndDeleteBtn.setOnClickListener(oCL);
+        }
+
+        public int getNowPosition(){
+            return getAdapterPosition();
+        }
 
         ViewHolder(View itemView) {
             super(itemView) ;
@@ -35,6 +47,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             habitView = itemView.findViewById(R.id.habits);
 
             habitSwitch = habitView.findViewById(R.id.habitSW);
+            habitEditAndDeleteBtn = habitView.findViewById(R.id.habitEditAndDelete);
 
 //            if(!mDate.isEqual(LocalDate.now())){
 //                habitSwitch.setEnabled(false);
@@ -44,16 +57,61 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION){
-                        mData.get(pos).set_did(b);
+                        mData.get(pos).set_complete(b);
                     }
                 }
             });
 
+            habitEditAndDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getNowPosition();
+                    habitContext.nowPosition = pos;
+
+                    habitContext.contextEditText.setText(habitContext.habits.get(pos).get_name());
+
+                    habitContext.del_Btn.setVisibility(View.VISIBLE);
+                    habitContext.cha_Btn.setVisibility(View.VISIBLE);
+                    habitContext.contextEditText.setVisibility(View.VISIBLE);
+                    habitContext.textView2.setVisibility(View.VISIBLE);
+                    habitContext.recycleView.setVisibility(View.INVISIBLE);
+
+                }
+            });
+
+//            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//                    final int position = getAbsoluteAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION){
+//                        a
+//                    }
+//
+//                    return false;
+//                }
+//            });
         }
+
+//        ViewHolder(View a_itemView, final OnItemLongClickEventListener a_itemLongClickListener) {
+//            super(a_itemView);
+//
+//            // long Click event
+//            a_itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View a_view) {
+//                    final int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        a_itemLongClickListener.onItemLongClick(a_view, position);
+//                    }
+//
+//                    return false;
+//                }
+//            });
+//        }
     }
 
-    public void changeHabit(ArrayList<Habit> habits){
-        mData = habits;
+    public void changeHabit(ArrayList<HabitCheck> habitChecks){
+        mData = habitChecks;
         notifyDataSetChanged();
     }
 
@@ -62,9 +120,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     }
 
     // 생성자에서 데이터 리스트 객체를 전달받음.
-    RecycleAdapter(ArrayList<Habit> habits, LocalDate date) {
-        mData = habits ;
+    RecycleAdapter(ArrayList<HabitCheck> habitChecks, LocalDate date,Habit_tracker context) {
+        mData = habitChecks ;
         mDate = date;
+        habitContext = context;
         notifyDataSetChanged();
     }
 
@@ -76,6 +135,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
         View view = inflater.inflate(R.layout.sub, parent, false);
         RecycleAdapter.ViewHolder vh = new RecycleAdapter.ViewHolder(view);
+        System.out.println("onCreateViewHolder 실행됨");
 
         return vh ;
     }
@@ -83,17 +143,17 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String habitName = mData.get(position).get_name();
-        int habitColor = mData.get(position).get_Color();
+        String habitName = mData.get(position).getHabit().get_name();
+        int habitColor = mData.get(position).getHabit().get_Color();
         Switch tempSw = holder.habitView.findViewById(R.id.habitSW);
         TextView tempC = holder.habitView.findViewById(R.id.habitText);
         tempSw.setText(habitName);
         tempC.setTextColor(habitColor);
-        tempSw.setChecked(mData.get(position).get_did());
+        tempSw.setChecked(mData.get(position).get_complete());
 
         if(mDate.isBefore(LocalDate.now())){
             tempSw.setEnabled(false);
-            if(mData.get(position).get_did()) {
+            if(mData.get(position).get_complete()) {
                 holder.habitView.setBackgroundColor(Color.GREEN);
             }
             else{
@@ -110,6 +170,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             holder.habitView.setBackgroundResource(R.drawable.border);
         }
 
+        System.out.println("onBindViewHolder 실행됨");
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
@@ -117,5 +178,16 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     public int getItemCount() {
         return mData.size() ;
     }
+
+
+//    public interface OnItemLongClickEventListener {
+//        void onItemLongClick(View a_view, int a_position);
+//    }
+//
+//    private OnItemLongClickEventListener mItemLongClickListener;
+//
+//    public void setOnItemLongClickListener(OnItemLongClickEventListener a_listener) {
+//        mItemLongClickListener = a_listener;
+//    }
 }
 
