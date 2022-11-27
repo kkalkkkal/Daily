@@ -12,9 +12,10 @@ public class JournalInfo {
 
     private String documentName;
 
-    public JournalInfo(String uid, String documentName) {
-        this.uid = uid;
-        this.documentName = documentName;
+    public JournalInfo(String JournalName) {
+        this.JournalName = JournalName;
+        //this.Journal_IMG = Journal_IMG;
+
     }
 
     public String getJournalName() {

@@ -34,21 +34,26 @@ public class LookJournal extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     String searchWord;
     String documentName;
+    String uid;
     protected final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    List<String> arr = new ArrayList<String>();
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal_look);
 
         Intent secondIntent = getIntent();
-        String uid = secondIntent.getStringExtra("uid");
-        String documentName = secondIntent.getStringExtra("documentname");
+        uid = secondIntent.getStringExtra("uid");
+        documentName = secondIntent.getStringExtra("documentname");
+
+
+
 
 
         db.collection("board");
 
     }
+
 
 
 }

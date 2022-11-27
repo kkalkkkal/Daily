@@ -12,20 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
-
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHolder> {
 
+    private ArrayList<JournalInfo> JournalList = null;
 
-    public JournalAdapter(LookJournal lookJournal, List<JournalInfo> recipeList, Context applicationContext) {
+    public JournalAdapter(ArrayList<JournalInfo> journalList) {
+        JournalList = journalList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -64,16 +64,21 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
     }
 
     LookJournal lookJournal;
-    List<JournalInfo> JournalList;
+
     Context journal_content;
     FirebaseStorage fs;
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.searcheditem_layout, parent, false);
+
+        Context context = parent.getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //View view = LayoutInflater.from(parent.getContext())
+        //        .inflate(R.layout.searcheditem_layout, parent, false);
+        View view = inflater.inflate(R.layout.searcheditem_layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+
         return viewHolder;
     }
 
@@ -81,10 +86,10 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //bind view = 데이터를 세팅
         holder.mTitleTv.setText(JournalList.get(position).getJournalName());
-        holder.documentName = JournalList.get(position).getDocumentName();
-        StorageReference gsReference = fs.getReferenceFromUrl(JournalList.get(position).getJournal_IMG());
-        Log.e("error:", gsReference.toString());
-        holder.imageSetter(gsReference, journal_content);
+        //holder.documentName = JournalList.get(position).getDocumentName();
+        //StorageReference gsReference = fs.getReferenceFromUrl(JournalList.get(position).getJournal_IMG());
+        //Log.e("error:", gsReference.toString());
+        //holder.imageSetter(gsReference, journal_content);
     }
 
     @Override
