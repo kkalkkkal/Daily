@@ -16,19 +16,34 @@
             android:id="@+id/journal_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
 
         <EditText
-            android:id="@+id/make_journal_view"
+            android:id="@+id/make_journal_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Title" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <EditText
+            android:id="@+id/make_journal_context"
             android:layout_width="match_parent"
             android:layout_height="322dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:lines="20"
-            android:maxLines="20" />
+            android:maxLines="20"
+            android:text="Content" />
 
         <Button
             android:id="@+id/journal_save_btn"

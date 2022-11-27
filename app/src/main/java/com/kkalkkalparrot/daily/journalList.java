@@ -1,5 +1,6 @@
 package com.kkalkkalparrot.daily;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,60 +15,58 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.snapshot.Index;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.nio.channels.CompletionHandler;
 import java.util.ArrayList;
+import java.util.List;
 
 // 선택한 날짜의 저널 리스트 보기
-public class journalList extends Fragment {
+public class journalList extends AppCompatActivity {
 
-    private ArrayList<JournalInfo> mArrayList;
-    private JournalAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.journal_list, container, false);
-    }
+    private static final String TAG = MainActivity.class.getSimpleName();
+    RecyclerView mRecyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    String searchWord;
+    String documentName;
+    FirebaseFirestore db;
+    List<String> arr = new ArrayList<String>();
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView)view.findViewById(R.id.JournalRecyclerView);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(view.getContext());
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        mArrayList = new ArrayList<>();
+        Intent secondIntent = getIntent();
+        int camera_state = secondIntent.getIntExtra("camera", 0);
+        String uid = secondIntent.getStringExtra("uid");
+        int year = secondIntent.getIntExtra("year",2022);
+        int month = secondIntent.getIntExtra("month",1);
+        int dayOfMonth = secondIntent.getIntExtra("dayOfMonth", 1);
+        String date = secondIntent.getStringExtra("TimeStamp");
 
-        //여기에 mArrayList에 데이터 넣는거 필요함
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Journal").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    int count = 0;
-                    for (DocumentSnapshot document : task.getResult()){
-                        String JournalName = (String)document.get("TITLE");
-                        JournalInfo inputJournal = new JournalInfo(JournalName, document.getId());
-                        mArrayList.add(inputJournal);
-                        Log.e("JournalFragment", JournalName + " input!");
-                    }
-                    mAdapter = new JournalAdapter(mArrayList);
-                    setmAdapter();
-                }
-            }
-        });
+        setContentView(R.layout.journal_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.JournalRecyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
+        searchWord = getIntent().getStringExtra("SearchWord");
+
+
+
     }
 
-    void setmAdapter(){
-        mRecyclerView.setAdapter(mAdapter);
-    }
 
 
 }

@@ -28,6 +28,7 @@ public class Journal extends Fragment {
     CalendarView calendarView;
     private ImageButton camera_btn;
     private ImageButton journal_btn;
+    private ImageButton journal_list_btn;
 
 
     protected String uid;
@@ -50,12 +51,15 @@ public class Journal extends Fragment {
         camera_btn = rootView.findViewById(R.id.camera_btn);
         journal_btn = rootView.findViewById(R.id.new_journal_btn);
         calendarView = rootView.findViewById(R.id.calendarView);
+        journal_list_btn = rootView.findViewById(R.id.journal_list_btn);
 
-        DateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분 ss초 zzzZZZZ");
+        DateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분 ss초 zzz");
 
         camera_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                date = new Date(calendarView.getDate());
+
                 Intent intent = new Intent(getActivity(), MakeJournal.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("camera", 1);
@@ -72,6 +76,8 @@ public class Journal extends Fragment {
         journal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                date = new Date(calendarView.getDate());
+
                 Intent intent = new Intent(getActivity(), MakeJournal.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("camera", 0);
@@ -80,6 +86,23 @@ public class Journal extends Fragment {
                 intent.putExtra("year", select_year);
                 intent.putExtra("month", select_month);
                 intent.putExtra("dayOfMonth", select_dayOfMonth);
+                intent.putExtra("TimeStamp", formatter.format(date));
+                startActivity(intent);
+            }
+        });
+
+        journal_list_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                date = new Date(calendarView.getDate());
+
+                Intent intent = new Intent(getActivity(), journalList.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra("uid", uid);
+                intent.putExtra("year", select_year);
+                intent.putExtra("month", select_month);
+                intent.putExtra("dayOfMonth", select_dayOfMonth);
+                intent.putExtra("TimeStamp", formatter.format(date));
                 startActivity(intent);
             }
         });
