@@ -184,8 +184,8 @@ public class Habit_tracker extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_habit_tracker, container, false);
 
-//        uid = getArguments().getString("uid");
-        uid = "oCJNHZVDVtU4g4NQVnDEsdlCGFQ2";
+        uid = getArguments().getString("uid");
+//        uid = "oCJNHZVDVtU4g4NQVnDEsdlCGFQ2";
 
         context = this;
 
