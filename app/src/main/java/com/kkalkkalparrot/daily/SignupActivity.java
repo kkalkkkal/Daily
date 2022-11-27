@@ -190,6 +190,8 @@ public class SignupActivity extends AppCompatActivity {
                                                 userData.put("image",userImgUrl);
                                                 userData.put("groups",new ArrayList<String>());
                                                 userData.put("level", new HashMap<>());
+                                                userData.put("friends", new ArrayList<>());
+                                                userData.put("habitList", new HashMap<>());
                                                 db.collection("Member").document(uid).set(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
