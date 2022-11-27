@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> {
     private ArrayList<HabitCheck> mData = null ;
@@ -56,6 +57,12 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     int pos = getAdapterPosition();
+
+                    Long TS = LocalDate.now().toEpochDay() * 86400;
+                    Map<String, Object> tempMap = new HashMap<>();
+
+                    habitContext.memberDoc.collection("Habits").document(String.valueOf(TS)).update(habitContext.habits.get(pos).get_name(), b);
+
                     if(pos != RecyclerView.NO_POSITION){
                         mData.get(pos).set_complete(b);
                     }
@@ -65,7 +72,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             habitEditAndDeleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos = getNowPosition();
+                    int pos = getNowPosition();//                                                    java.sql.Timestamp tempTS = java.sql.Timestamp.valueOf(String.valueOf(tempdate.atStartOfDay()));
+
                     habitContext.nowPosition = pos;
 
                     habitContext.contextEditText.setText(habitContext.habits.get(pos).get_name());
