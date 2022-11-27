@@ -12,8 +12,8 @@ public class JournalInfo {
 
     private String documentName;
 
-    public JournalInfo(String JournalName, String documentName) {
-        this.JournalName = JournalName;
+    public JournalInfo(String uid, String documentName) {
+        this.uid = uid;
         this.documentName = documentName;
     }
 

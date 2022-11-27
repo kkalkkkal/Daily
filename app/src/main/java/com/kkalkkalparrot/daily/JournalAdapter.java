@@ -21,8 +21,12 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
+
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHolder> {
 
+
+    public JournalAdapter(LookJournal lookJournal, List<JournalInfo> recipeList, Context applicationContext) {
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView mTitleTv;
