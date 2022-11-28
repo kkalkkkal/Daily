@@ -1,5 +1,7 @@
 package com.kkalkkalparrot.daily;
 
+import android.graphics.drawable.Drawable;
+
 public class JournalInfo {
 
     private String JournalName; // 저널 제목
@@ -7,14 +9,16 @@ public class JournalInfo {
     private String timestamp; // 작성 시간
     private String[] GPS; // 작성 위치
     private String uid; // 작성자 아이디
-    private String Journal_IMG; // 저널에 추가된 사진
+    private int Journal_IMG; // 저널에 추가된 사진
     private String[] tag; // 작성 태그
 
     private String documentName;
 
-    public JournalInfo(String JournalName) {
+    public JournalInfo(int Journal_IMG, String JournalName, String documentName, String uID) {
         this.JournalName = JournalName;
-        //this.Journal_IMG = Journal_IMG;
+        this.Journal_IMG = Journal_IMG;
+        this.documentName = documentName;
+        this.uid = uID;
 
     }
 
@@ -58,11 +62,11 @@ public class JournalInfo {
         this.uid = uid;
     }
 
-    public String getJournal_IMG() {
+    public int getJournal_IMG() {
         return Journal_IMG;
     }
 
-    public void setJournal_IMG(String journal_IMG) {
+    public void setJournal_IMG(int journal_IMG) {
         Journal_IMG = journal_IMG;
     }
 

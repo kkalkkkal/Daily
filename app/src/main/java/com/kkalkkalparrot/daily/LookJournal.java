@@ -1,41 +1,42 @@
 package com.kkalkkalparrot.daily;
 
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.algolia.search.saas.AlgoliaException;
-import com.algolia.search.saas.Client;
-import com.algolia.search.saas.CompletionHandler;
-import com.algolia.search.saas.Index;
-import com.algolia.search.saas.Query;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 // 선택한 저널 보기
 public class LookJournal extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    RecyclerView mRecyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    String searchWord;
-    String documentName;
+
+    private String documentName;
     String uid;
-    protected final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    protected FirebaseFirestore db;
+
+    Button share_btn;
+    TextView writer_name;
+    TextView journal_content;
+    TextView journal_Title;
+    TextView journal_timestamp;
+    ImageView journal_image;
+
+
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +46,50 @@ public class LookJournal extends AppCompatActivity {
         Intent secondIntent = getIntent();
         uid = secondIntent.getStringExtra("uid");
         documentName = secondIntent.getStringExtra("documentname");
+        Log.d("Documentname",documentName);
 
+        db = FirebaseFirestore.getInstance();
 
+        share_btn = (Button) findViewById(R.id.share_btn);
+        writer_name = (TextView) findViewById(R.id.journal_writer);
+        journal_content = (TextView) findViewById(R.id.journal_content);
+        journal_Title = (TextView) findViewById(R.id.journal_title);
+        journal_timestamp = (TextView) findViewById(R.id.journal_Timestamp);
+        journal_image = (ImageView) findViewById(R.id.journal_image);
 
-
-
-        db.collection("board");
+        //Todo : share_btn 함수 작성
+        InitializeData();
 
     }
 
+
+    public void InitializeData() {
+        Log.d("InitializeData()/ Document name" , documentName);
+        DocumentReference docRef = db.collection("Member").document(uid).collection("Journal").document(documentName);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        writer_name.setText(document.get("uid").toString());
+                        journal_Title.setText(document.get("Title").toString());
+                        journal_content.setText(document.get("Content").toString());
+                        //journal_image.setImageBitmap();
+                        journal_timestamp.setText(document.get("Timestamp").toString());
+                        document.get("GPS");
+                        document.get("image");
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
 
 
 }

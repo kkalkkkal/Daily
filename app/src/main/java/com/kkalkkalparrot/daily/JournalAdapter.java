@@ -22,18 +22,18 @@ import java.util.List;
 
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHolder> {
 
-    private ArrayList<JournalInfo> JournalList = null;
+    private List<JournalInfo> JournalList = null;
 
-    public JournalAdapter(ArrayList<JournalInfo> journalList) {
-        JournalList = journalList;
+    public JournalAdapter(List<JournalInfo> journalList) {
+        this.JournalList = journalList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView mTitleTv;
         ImageView mImgTv;
         View mView;
-        protected TextView journalName;
-        protected String documentName;
+        //protected TextView journalName;
+        protected String documentName = "";
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -46,12 +46,19 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), LookJournal.class);
-                    Log.e("JournalAdpater", documentName);
-                    intent.putExtra("journalName", documentName);
-                    v.getContext().startActivity(intent);
+                    int pos = getAdapterPosition();
+                    if ( pos != RecyclerView.NO_POSITION) {
+                        Intent intent = new Intent(v.getContext(), LookJournal.class);
+                        //Log.e("JournalAdpater", documentName);
+                        intent.putExtra("documentname", JournalList.get(pos).getDocumentName());
+                        intent.putExtra("uid",JournalList.get(pos).getUid());
+                        v.getContext().startActivity(intent);
+                    }
+
                 }
             });
+
+
         } // 생성자 끝
 
         public void imageSetter(StorageReference srf, Context ct){
@@ -85,7 +92,14 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //bind view = 데이터를 세팅
+
+        JournalInfo item = JournalList.get(position);
+
         holder.mTitleTv.setText(JournalList.get(position).getJournalName());
+        holder.mImgTv.setImageResource(item.getJournal_IMG());
+
+        int p = position;
+
         //holder.documentName = JournalList.get(position).getDocumentName();
         //StorageReference gsReference = fs.getReferenceFromUrl(JournalList.get(position).getJournal_IMG());
         //Log.e("error:", gsReference.toString());

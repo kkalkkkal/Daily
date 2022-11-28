@@ -46,12 +46,14 @@ public class journalList extends AppCompatActivity {
     String date;
     FirebaseFirestore db;
 
-    private ArrayList<JournalInfo> journalList;
+    private List<JournalInfo> journalList;
+    JournalAdapter journalAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.journal_list);
 
         Intent secondIntent = getIntent();
         uid = secondIntent.getStringExtra("uid");
@@ -62,14 +64,16 @@ public class journalList extends AppCompatActivity {
 
         this.InitializeData();
 
-        setContentView(R.layout.journal_list);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.JournalRecyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         //layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
 
         //mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new JournalAdapter(journalList));  // Adapter 등록
+        journalAdapter = new JournalAdapter(journalList);
+
+        mRecyclerView.setAdapter(journalAdapter);  // Adapter 등록
 
     }
 
@@ -84,12 +88,14 @@ public class journalList extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                journalList.add(new JournalInfo(document.get("Title").toString()));
+                                journalList.add(new JournalInfo(R.drawable.icons_heart,document.get("Title").toString(), document.getId(), uid));
                                 Log.d(TAG, "Title : " + document.get("Title").toString());
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
+
+                        journalAdapter.notifyItemInserted(0);
                     }
                 });
 
