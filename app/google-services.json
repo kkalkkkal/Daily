@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:642629435958:android:0c36aa00537ff72addce97",
+        "mobilesdk_app_id": "1:642629435958:android:fca3a1a72faa2924ddce97",
         "android_client_info": {
           "package_name": "com.kkalkkalparrot.daily"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "642629435958-43nqiepahkf3p1isg33gnhb4gdffkktl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.kkalkkalparrot.daily",
-            "certificate_hash": "fa3069b7ac5239b78946e67759ea242e31974a7b"
-          }
-        },
         {
           "client_id": "642629435958-mnu8g05h65hc3ta18ej1t0qjmuntauh8.apps.googleusercontent.com",
           "client_type": 3
