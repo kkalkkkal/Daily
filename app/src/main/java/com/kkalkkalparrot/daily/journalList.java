@@ -18,10 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.snapshot.Index;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
@@ -38,35 +41,66 @@ public class journalList extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    String searchWord;
     String documentName;
+    String uid;
+    String date;
     FirebaseFirestore db;
-    List<String> arr = new ArrayList<String>();
+
+    private List<JournalInfo> journalList;
+    JournalAdapter journalAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.journal_list);
 
         Intent secondIntent = getIntent();
-        int camera_state = secondIntent.getIntExtra("camera", 0);
-        String uid = secondIntent.getStringExtra("uid");
+        uid = secondIntent.getStringExtra("uid");
         int year = secondIntent.getIntExtra("year",2022);
         int month = secondIntent.getIntExtra("month",1);
         int dayOfMonth = secondIntent.getIntExtra("dayOfMonth", 1);
-        String date = secondIntent.getStringExtra("TimeStamp");
+        date = secondIntent.getStringExtra("TimeStamp");
 
-        setContentView(R.layout.journal_list);
+        this.InitializeData();
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.JournalRecyclerView);
-        layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        //layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(manager);
 
-        searchWord = getIntent().getStringExtra("SearchWord");
+        //mRecyclerView.setHasFixedSize(true);
+        journalAdapter = new JournalAdapter(journalList);
 
-
+        mRecyclerView.setAdapter(journalAdapter);  // Adapter 등록
 
     }
 
+    public void InitializeData() {
+        journalList = new ArrayList<>();
+
+        db = FirebaseFirestore.getInstance();
+        db.collection("Member").document(uid).collection("Journal")
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                journalList.add(new JournalInfo(R.drawable.icons_heart,document.get("Title").toString(), document.getId(), uid));
+                                Log.d(TAG, "Title : " + document.get("Title").toString());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+
+                        journalAdapter.notifyItemInserted(0);
+                    }
+                });
+
+
+    }
 
 
 }

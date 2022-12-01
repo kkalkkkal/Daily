@@ -54,7 +54,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.4.1'
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
-    implementation 'com.firebaseui:firebase-ui-storage:8.0.2' // get firestore storage ui
+    implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'// get firestore storage ui
 
 
     testImplementation 'junit:junit:4.+'
