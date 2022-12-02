@@ -137,7 +137,7 @@ public class GroupFeedsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
 //        params.leftMargin(10)
         textView.setLayoutParams(params);
-        textView.setText("그룹 정보\n그룹 코드\n"+gid);
+        textView.setText("Group Info\nGroup Code\n"+gid);
         textView.setTextIsSelectable(true);
 
         AlertDialog.Builder msgBuilder = new AlertDialog.Builder(GroupFeedsActivity.this)

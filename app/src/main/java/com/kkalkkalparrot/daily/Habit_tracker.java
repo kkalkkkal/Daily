@@ -277,7 +277,7 @@ public class Habit_tracker extends Fragment {
                                             public void onClick(View view) {
                                                 str = contextEditText.getText().toString();
                                                 if (str.isEmpty()){
-                                                    Toast.makeText(getActivity(), "습관을 입력해주세요.", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getActivity(), "Please enter your habit.", Toast.LENGTH_LONG).show();
                                                     return;
                                                 }
 
@@ -397,7 +397,7 @@ public class Habit_tracker extends Fragment {
                                             {
                                                 str = contextEditText.getText().toString();
                                                 if (str.isEmpty()){
-                                                    Toast.makeText(getActivity(), "습관을 입력해주세요.", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getActivity(), "Please enter your habit.", Toast.LENGTH_LONG).show();
                                                     return;
                                                 }
 

@@ -77,10 +77,10 @@ public class MainActivity extends FragmentActivity {
         }
 
         tabs = findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("저널"));
-        tabs.addTab(tabs.newTab().setText("그룹"));
-        tabs.addTab(tabs.newTab().setText("주변"));
-        tabs.addTab(tabs.newTab().setText("감정"));
+        tabs.addTab(tabs.newTab().setText("Journal"));
+        tabs.addTab(tabs.newTab().setText("group"));
+        tabs.addTab(tabs.newTab().setText("Find Friends"));
+        tabs.addTab(tabs.newTab().setText("habit"));
 
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
