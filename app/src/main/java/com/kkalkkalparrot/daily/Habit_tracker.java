@@ -200,8 +200,10 @@ public class Habit_tracker extends Fragment {
                     if (document.exists()) {
                         Map<String, Object> temp = document.getData();
                         HashMap<String, Long> ttempMap = (HashMap<String, Long>) temp.get("habitList");
-                        for (Map.Entry<String, Long> pairs : ttempMap.entrySet()){
-                            habits.add(new Habit(pairs.getKey(), pairs.getValue().intValue()));
+                        if (habits.isEmpty()){
+                            for (Map.Entry<String, Long> pairs : ttempMap.entrySet()){
+                                habits.add(new Habit(pairs.getKey(), pairs.getValue().intValue()));
+                            }
                         }
 
                         Log.d("맴버 접근", "DocumentSnapshot data: " + habits.get(0).get_name() );
