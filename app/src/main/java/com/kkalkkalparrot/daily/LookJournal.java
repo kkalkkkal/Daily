@@ -65,7 +65,7 @@ public class LookJournal extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
                 intent.putExtra("uid",uid);
-                intent.putExtra("documentid",documentName);
+                intent.putExtra("documentname",documentName);
 
                 startActivity(intent);
             }

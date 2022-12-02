@@ -52,7 +52,7 @@ public class PopupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                GroupList.add(new Popup_Group_Data(document.getId(),document.get("description"), document.get("name"), uid, document_id));
+                                GroupList.add(new Popup_Group_Data(document.getId(),document.get("description").toString(), document.get("name").toString(), uid, document_id));
                                 Log.d(TAG, "Title : " + document.get("Title").toString());
                             }
                         } else {
