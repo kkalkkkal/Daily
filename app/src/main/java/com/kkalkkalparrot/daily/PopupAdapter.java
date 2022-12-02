@@ -28,8 +28,8 @@ public class PopupAdapter extends RecyclerView.Adapter<PopupAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView mTitleTv;
-        ImageView mImgTv;
+        TextView group_name_view;
+        TextView group_description_view;
         View mView;
         //protected TextView journalName;
         protected String documentName = "";
@@ -39,18 +39,23 @@ public class PopupAdapter extends RecyclerView.Adapter<PopupAdapter.ViewHolder>{
             mView = itemView;
 
             //뷰를 초기화
-            mTitleTv = itemView.findViewById(R.id.rTitleTv);
-            mImgTv = (ImageView) itemView.findViewById(R.id.smallImg);
+            group_name_view = itemView.findViewById(R.id.group_name);
+            group_description_view = itemView.findViewById(R.id.group_description);
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if ( pos != RecyclerView.NO_POSITION) {
-                        Intent intent = new Intent(v.getContext(), LookJournal.class);
+                        Intent intent = new Intent(v.getContext(), MainActivity.class);
                         //Log.e("JournalAdpater", documentName);
-                        intent.putExtra("documentname", JournalList.get(pos).getDocumentName());
-                        intent.putExtra("uid",JournalList.get(pos).getUid());
+                        intent.putExtra("documentname", GroupList.get(pos).getDocument_id());
+                        intent.putExtra("uid",GroupList.get(pos).getUid());
+
+                        // Firebase에 그룹을 해당 그룹을 넣는다.
+
+
+
                         v.getContext().startActivity(intent);
                     }
 
@@ -60,30 +65,18 @@ public class PopupAdapter extends RecyclerView.Adapter<PopupAdapter.ViewHolder>{
 
         } // 생성자 끝
 
-        public void imageSetter(StorageReference srf, Context ct){
-            GlideApp
-                    .with(ct)
-                    .load(srf)
-                    .into(mImgTv);
-
-        }
     }
 
-    LookJournal lookJournal;
-
-    Context journal_content;
-    FirebaseStorage fs;
 
     @NonNull
     @Override
-    public JournalAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PopupAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //View view = LayoutInflater.from(parent.getContext())
-        //        .inflate(R.layout.searcheditem_layout, parent, false);
-        View view = inflater.inflate(R.layout.searcheditem_layout, parent, false);
-        JournalAdapter.ViewHolder viewHolder = new JournalAdapter.ViewHolder(view);
+
+        View view = inflater.inflate(R.layout.popup_group_item, parent, false);
+        PopupAdapter.ViewHolder viewHolder = new PopupAdapter.ViewHolder(view);
 
         return viewHolder;
     }
@@ -95,20 +88,17 @@ public class PopupAdapter extends RecyclerView.Adapter<PopupAdapter.ViewHolder>{
 
         Popup_Group_Data item = GroupList.get(position);
 
-        holder.mTitleTv.setText(GroupList.get(position).getJournalName());
+        holder.group_name_view.setText(GroupList.get(position).getGroup_name());
+        holder.group_description_view.setText(GroupList.get(position).getGroup_Description());
         //holder.mImgTv.setImageResource(item.getJournal_IMG());
 
         int p = position;
 
-        //holder.documentName = JournalList.get(position).getDocumentName();
-        //StorageReference gsReference = fs.getReferenceFromUrl(JournalList.get(position).getJournal_IMG());
-        //Log.e("error:", gsReference.toString());
-        //holder.imageSetter(gsReference, journal_content);
     }
 
     @Override
     public int getItemCount() {
-        return JournalList.size();
+        return GroupList.size();
     }
 
 

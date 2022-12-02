@@ -4,6 +4,7 @@ package com.kkalkkalparrot.daily;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // 선택한 저널 보기
 public class LookJournal extends AppCompatActivity {
 
@@ -26,7 +30,7 @@ public class LookJournal extends AppCompatActivity {
 
     private String documentName;
     String uid;
-    protected FirebaseFirestore db;
+    protected final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     Button share_btn;
     TextView writer_name;
@@ -34,9 +38,6 @@ public class LookJournal extends AppCompatActivity {
     TextView journal_Title;
     TextView journal_timestamp;
     ImageView journal_image;
-
-
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,6 @@ public class LookJournal extends AppCompatActivity {
         documentName = secondIntent.getStringExtra("documentname");
         Log.d("Documentname",documentName);
 
-        db = FirebaseFirestore.getInstance();
-
         share_btn = (Button) findViewById(R.id.share_btn);
         writer_name = (TextView) findViewById(R.id.journal_writer);
         journal_content = (TextView) findViewById(R.id.journal_content);
@@ -59,6 +58,21 @@ public class LookJournal extends AppCompatActivity {
 
         //Todo : share_btn 함수 작성
         InitializeData();
+
+        // 공유하기 버튼
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("documentid",documentName);
+
+                startActivity(intent);
+
+
+
+            }
+        });
 
     }
 

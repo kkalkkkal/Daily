@@ -4,14 +4,24 @@ public class Popup_Group_Data {
 
     String Group_id;
     String Group_Description;
+    String Group_name;
     String Uid;
     String Document_id;
 
-    public Popup_Group_Data(String group_id, String group_Description, String uid, String document_id) {
+    public Popup_Group_Data(String group_id, String group_Description, String group_name, String uid, String document_id) {
         this.Group_id = group_id;
         this.Group_Description = group_Description;
+        this.Group_name = group_name;
         this.Uid = uid;
         this.Document_id = document_id;
+    }
+
+    public String getGroup_name() {
+        return Group_name;
+    }
+
+    public void setGroup_name(String group_name) {
+        Group_name = group_name;
     }
 
     public String getGroup_id() {
