@@ -189,6 +189,9 @@ public class Habit_tracker extends Fragment {
 
         context = this;
 
+//....................
+
+//        ...............
 
 
         memberDoc = db.collection("Member").document(uid);
@@ -226,7 +229,6 @@ public class Habit_tracker extends Fragment {
                                             LocalDate tsLocalDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
                                             Map<String, Object> tempInner = document.getData();
-//                                            Iterator<String> keys = tempInner.keySet().iterator();
 
                                             ArrayList<HabitCheck> testHabitChecks = new ArrayList<>();
 
@@ -239,6 +241,18 @@ public class Habit_tracker extends Fragment {
                                             }
 
                                             map.put(tsLocalDate, testHabitChecks);
+                                        }
+
+                                        if(!map.containsKey(date)) {
+                                            ArrayList<HabitCheck> todayHabitChecks = new ArrayList<>();
+                                            for (Habit habit : habits) {
+                                                HabitCheck hc = new HabitCheck(habit);
+                                                todayHabitChecks.add(hc);
+                                            }
+                                            //키가 들어있는지 확인. 있으면 덮어쓰지 않는다.
+                                            map.put(date, todayHabitChecks);
+
+                                            dbHabitsChange(memberDoc);
                                         }
 
 
