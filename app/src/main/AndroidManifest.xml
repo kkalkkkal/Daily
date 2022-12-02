@@ -40,6 +40,7 @@
         <activity android:name=".MakeJournal" />
         <activity android:name=".journalList" />
         <activity android:name=".LookJournal" />
+        <activity android:name=".PopupActivity" />
 
 
 

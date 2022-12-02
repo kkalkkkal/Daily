@@ -68,9 +68,6 @@ public class LookJournal extends AppCompatActivity {
                 intent.putExtra("documentid",documentName);
 
                 startActivity(intent);
-
-
-
             }
         });
 

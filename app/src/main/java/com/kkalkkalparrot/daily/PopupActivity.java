@@ -2,6 +2,7 @@ package com.kkalkkalparrot.daily;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,9 +24,18 @@ public class PopupActivity extends AppCompatActivity {
 
     ArrayList<Popup_Group_Data> GroupList;
 
+    String uid;
+    String document_id;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.popup_group);
+
+        Intent intent = getIntent();
+        uid = intent.getStringExtra("uid"); // 로그인한 유저의 ID
+        document_id = intent.getStringExtra("documentname");
+
 
 
 
@@ -42,14 +52,14 @@ public class PopupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                journalList.add(new JournalInfo(R.drawable.icons_heart,document.get("Title").toString(), document.getId(), uid));
+                                GroupList.add(new Popup_Group_Data(document.getId(),document.get("description"), document.get("name"), uid, document_id));
                                 Log.d(TAG, "Title : " + document.get("Title").toString());
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
 
-                        journalAdapter.notifyItemInserted(0);
+                        PopupAdapter.notifyItemInserted(0);
                     }
                 });
 
