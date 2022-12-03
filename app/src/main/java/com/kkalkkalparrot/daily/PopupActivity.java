@@ -120,25 +120,29 @@ public class PopupActivity extends AppCompatActivity {
     // 그룹 컬렉션에서 선택한 콘렉션 찾기
     public void InitializeData2() {
         popup_group_data = new ArrayList<>();
-
+        DocumentReference docRef;
         for (String group_id : GroupList){
-            db.collection("Group").document(group_id).collection("")
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d(TAG, document.getId() + " => " + document.getData());
-                                    popup_group_data.add(new Popup_Group_Data(document.getId(),document.get("description").toString(), document.get("name").toString(), uid, document_id));
+            docRef = db.collection("Group").document(group_id);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            popup_group_data.add(new Popup_Group_Data(document.getId(),document.get("description").toString(), document.get("name").toString(), uid, document_id));
 
-                                }
-                            } else {
-                                Log.w(TAG, "Error getting documents.", task.getException());
-                            }
 
-                            popupAdapter.notifyItemInserted(0);
+                        } else {
+                            Log.d(TAG, "No such document");
                         }
-                    });
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                    popupAdapter.notifyItemInserted(0);
+                }
+            });
+
         }
 
     }
