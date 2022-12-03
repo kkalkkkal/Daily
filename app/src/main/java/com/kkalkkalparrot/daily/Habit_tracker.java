@@ -203,8 +203,10 @@ public class Habit_tracker extends Fragment {
                     if (document.exists()) {
                         Map<String, Object> temp = document.getData();
                         HashMap<String, Long> ttempMap = (HashMap<String, Long>) temp.get("habitList");
-                        for (Map.Entry<String, Long> pairs : ttempMap.entrySet()){
-                            habits.add(new Habit(pairs.getKey(), pairs.getValue().intValue()));
+                        if (habits.isEmpty()){
+                            for (Map.Entry<String, Long> pairs : ttempMap.entrySet()){
+                                habits.add(new Habit(pairs.getKey(), pairs.getValue().intValue()));
+                            }
                         }
 
                         Log.d("맴버 접근", "DocumentSnapshot data: " + habits.get(0).get_name() );
@@ -275,7 +277,7 @@ public class Habit_tracker extends Fragment {
                                             public void onClick(View view) {
                                                 str = contextEditText.getText().toString();
                                                 if (str.isEmpty()){
-                                                    Toast.makeText(getActivity(), "습관을 입력해주세요.", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getActivity(), "Please enter your habit.", Toast.LENGTH_LONG).show();
                                                     return;
                                                 }
 
@@ -395,7 +397,7 @@ public class Habit_tracker extends Fragment {
                                             {
                                                 str = contextEditText.getText().toString();
                                                 if (str.isEmpty()){
-                                                    Toast.makeText(getActivity(), "습관을 입력해주세요.", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getActivity(), "Please enter your habit.", Toast.LENGTH_LONG).show();
                                                     return;
                                                 }
 

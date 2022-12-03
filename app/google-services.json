@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "895607374251",
-    "project_id": "daily2-7702c",
-    "storage_bucket": "daily2-7702c.appspot.com"
+    "project_number": "642629435958",
+    "project_id": "daily-eeae6",
+    "storage_bucket": "daily-eeae6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:895607374251:android:86504eb0336b4a03e212ee",
+        "mobilesdk_app_id": "1:642629435958:android:b768fec35eeccfafddce97",
         "android_client_info": {
           "package_name": "com.kkalkkalparrot.daily"
         }
       },
       "oauth_client": [
         {
-          "client_id": "895607374251-u8k97kc0f8hb8nkh8jt7d1dfh6fd4uqf.apps.googleusercontent.com",
+          "client_id": "642629435958-mnu8g05h65hc3ta18ej1t0qjmuntauh8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCuYGw3_H5H733N_R0oll1NQkJHuEXorAs"
+          "current_key": "AIzaSyDRVhzb1jRSC3ULGj9Akb-q8XiZGYsIFgA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "895607374251-u8k97kc0f8hb8nkh8jt7d1dfh6fd4uqf.apps.googleusercontent.com",
+              "client_id": "642629435958-mnu8g05h65hc3ta18ej1t0qjmuntauh8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

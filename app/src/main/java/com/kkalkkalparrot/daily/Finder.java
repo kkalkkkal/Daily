@@ -120,10 +120,10 @@ public class Finder extends Fragment {
                                 Log.d("Finder DB", "DocumentSnapshot data: " + document.getData());
                                 myInfo = document.getData();
                                 if(((ArrayList<String>)myInfo.get("friends")).contains(friendUid)){
-                                    Toast.makeText(getContext(),"이미 등록된 친구입니다.",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(),"This friend is already registered.",Toast.LENGTH_SHORT).show();
                                 }else{
                                     db.collection("Member").document(uid).update("friends", FieldValue.arrayUnion(friendUid));
-                                    Toast.makeText(getContext(),"친구로 등록 되었습니다.",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(),"You have been registered as a friend.",Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Log.d("Finder DB", "No such document");

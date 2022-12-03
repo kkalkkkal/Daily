@@ -98,16 +98,16 @@ public class LoginActivity extends AppCompatActivity {
 
         if(userEmail.equals("")||userPassword.equals("")){
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-            dialog = builder.setMessage("빈 칸 없이 입력해주세요.")
-                    .setNegativeButton("확인",null)
+            dialog = builder.setMessage("Please enter without spaces.")
+                    .setNegativeButton("Confirm",null)
                     .create();
             dialog.show();
             return;
         }
         if(userPassword.length()<6){
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-            dialog = builder.setMessage("비밀번호는 6자 이상 입력.")
-                    .setNegativeButton("확인",null)
+            dialog = builder.setMessage("Password must be at least 6 characters.")
+                    .setNegativeButton("Confirm",null)
                     .create();
             dialog.show();
             return;
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                             dialog = builder.setMessage("Welcome to Daily")
-                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             Intent mainintent = new Intent(LoginActivity.this, MainActivity.class);
@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                             dialog = builder.setMessage("Login failed")
-                                    .setNegativeButton("확인", null)
+                                    .setNegativeButton("Confirm", null)
                                     .create();
                             dialog.show();
                         }

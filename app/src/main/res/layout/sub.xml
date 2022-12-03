@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_gravity="end"
-        android:text="습관" />
+        android:text="habit" />
 
     <Button
         android:id="@+id/habitEditAndDelete"
@@ -43,6 +43,6 @@
         android:minHeight="0dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        android:text="수정/삭제" />
+        android:text="Edit/Delete" />
 
 </LinearLayout>

@@ -45,7 +45,7 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:text="그룹 생성"
+            android:text="Create Group"
             android:visibility="invisible"/>
         <ImageButton
             android:id="@+id/groupList_opt1_b"
@@ -67,7 +67,7 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:text="그룹 가입"
+            android:text="Join Group"
             android:visibility="invisible"/>
         <ImageButton
             android:id="@+id/groupList_opt2_b"

@@ -153,9 +153,9 @@ public class Community extends Fragment {
     private void groupJoinDialog(ViewGroup rootView, LayoutInflater inflater) {
         final EditText joinEditText = new EditText(getContext());
         AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
-                .setTitle("그룹 가입")
-                .setMessage("그룹 코드를 입력하세요")
-                .setView(joinEditText).setPositiveButton("가입", new DialogInterface.OnClickListener() {
+                .setTitle("Join Group")
+                .setMessage("Please enter your group code")
+                .setView(joinEditText).setPositiveButton("Join", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String gid = String.valueOf(joinEditText.getText());
@@ -185,10 +185,10 @@ public class Community extends Fragment {
 //        ll.addView(CreateEditText_image);
         ll.addView(CreateEditText_tag);
         AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
-                .setTitle("그룹 가입")
-                .setMessage("그룹 코드를 입력하세요")
+                .setTitle("Join Group")
+                .setMessage("Please enter your group code")
                 .setView(ll)
-                .setPositiveButton("가입", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Join", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = String.valueOf(CreateEditText_name.getText());
@@ -208,10 +208,10 @@ public class Community extends Fragment {
                                 data.put("tag",tags);
                                 createGroup(rootView,inflater,uid,data);
                             }else{
-                                showDialog("잘못된 입력입니다.");
+                                showDialog("Invalid input");
                             }
                         }else{
-                            showDialog("잘못된 입력입니다.");
+                            showDialog("Invalid input");
                         }
                     }
                 });
@@ -361,7 +361,7 @@ public class Community extends Fragment {
                             }
                         }
                         if (u_ck){
-                            showDialog(gid+"\n이미 가입된 그룹입니다.");
+                            showDialog(gid+"\nThis is a group you have already joined.");
                         }else{
                             db.collection("Group")
                                     .get()
@@ -379,11 +379,11 @@ public class Community extends Fragment {
 //                                Log.d("Community GrorpDB", document.getId() + " => " + document.getData());
                                                 }
                                                 if (g_ck){
-                                                    showDialog(gid+"\n그룹에 참가하였습니다.");
+                                                    showDialog(gid+"\nJoined the group.");
                                                     getUserDB(rootView,inflater,uid);
                                                 }
                                                 else{
-                                                    showDialog(gid+"\n존재하지않는 그룹입니다.");
+                                                    showDialog(gid+"\nThis group does not exist.");
                                                 }
                                             } else {
                                                 Log.d("Community GroupDB", "Error getting documents: ", task.getException());
